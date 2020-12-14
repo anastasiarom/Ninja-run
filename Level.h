@@ -5,7 +5,6 @@ struct Object
 {
     std::string name;
     Rect<float> rect;
-    Sprite sprite;
 };
 
 struct Layer
@@ -18,7 +17,6 @@ class Level
 private:
     int width, height, tileWidth, tileHeight;//ширина карты, высота карты, ширина тайла, высота тайла
     int firstTileID;                       //айди первого тайла
-    Rect<float> drawingBounds;             //размер части карты, которую рисуем
     Texture tilesetImage;                  //текстура карты
     std::vector<Object> objects;           //вектор объектов
     std::vector<Layer> layers;             //вектор слоёв

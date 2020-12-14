@@ -48,10 +48,6 @@ float Entity::getH()
 {
 	return h;
 }
-void Entity::setH(float H)
-{
-	h += H;
-}
 float Entity::getDX()
 {
 	return dx;
@@ -66,10 +62,7 @@ float Entity::getDY()
 }
 void Entity::setDY(float DY)
 {
-	if (DY == 0)
-		dy = DY;
-	else
-		dy += DY;
+	dy = DY;
 }
 int Entity::getHealth()
 {

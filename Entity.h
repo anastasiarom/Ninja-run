@@ -23,7 +23,6 @@ public:
 	float getY();
 	void setY(float);
 	float getH();
-	void setH(float);
 	float getDX();
 	void setDX(float);
 	float getDY();

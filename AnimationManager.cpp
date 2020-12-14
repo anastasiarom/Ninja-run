@@ -81,8 +81,6 @@ void AnimationManager::play() { animList[currentAnim].isPlaying = true; }
 
 void AnimationManager::play(std::string name) { animList[name].isPlaying = true; }
 
-bool AnimationManager::isPlaying() { return animList[currentAnim].isPlaying; }
-
 float AnimationManager::getH() { return animList[currentAnim].frames[0].height; }
 
 float AnimationManager::getW() { return animList[currentAnim].frames[0].width; }

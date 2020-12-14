@@ -70,7 +70,6 @@ void Player::Keyboard()
 		shoot = false;
 	}
 		
-	
 	if (!key["Esc"]) pause = false;
 
 	key["R"] = key["L"] = key["Up"] = key["Down"] = key["Space"] =key["Esc"]= false;

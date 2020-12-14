@@ -133,11 +133,6 @@ bool Level::LoadFromFile(std::string filename, std::string image)
 
                 int width, height;
 
-                Sprite sprite;
-                sprite.setTexture(tilesetImage);
-                sprite.setTextureRect(Rect<int>(0, 0, 0, 0));
-                sprite.setPosition(x, y);
-
                 if (objectElement->Attribute("width") != NULL)
                 {
                     width = atoi(objectElement->Attribute("width"));
@@ -147,13 +142,11 @@ bool Level::LoadFromFile(std::string filename, std::string image)
                 {
                     width = subRects[atoi(objectElement->Attribute("gid")) - firstTileID].width;
                     height = subRects[atoi(objectElement->Attribute("gid")) - firstTileID].height;
-                    sprite.setTextureRect(subRects[atoi(objectElement->Attribute("gid")) - firstTileID]);
                 }
                 // Экземпляр объекта
                 Object object;
                 object.name = objectName;
-                object.sprite = sprite;
-
+        
                 Rect <float> objectRect;
                 objectRect.top = y;
                 objectRect.left = x;

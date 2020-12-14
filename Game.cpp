@@ -245,8 +245,8 @@ bool StartGame(int l,RenderWindow& window, Windows &W )
                         Ninja.setHealth(10);
                         if (s >= 0) s -= 20;
                         line.setTextureRect(IntRect(580, 630, s, 30));
-                        if (Ninja.getDir()) { Ninja.setX(10); Ninja.setY(-10); }
-                        else { Ninja.setX(-10); Ninja.setY(-10); }
+                        if (Ninja.getDir()) { Ninja.setX(10); Ninja.setY(-20); }
+                        else { Ninja.setX(-10); Ninja.setY(-20); }
                     }
                     else
                     {
@@ -262,8 +262,8 @@ bool StartGame(int l,RenderWindow& window, Windows &W )
                     if (Ninja.getDY() > 0)
                         if (Ninja.getY() + Ninja.getH() < movPlat->getY() + movPlat->getH())
                         {
-                            Ninja.setY(movPlat->getY() - Ninja.getH() + 5);
-                            Ninja.setX(movPlat->getDX() * time);
+                            Ninja.setY(movPlat->getY() - Ninja.getH()- Ninja.getY() + 5);
+                            Ninja.setX((movPlat->getDX()) * time);
                             Ninja.setDY(0);
                             Ninja.STATE = Player::stay;
                         }
