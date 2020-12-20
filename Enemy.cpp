@@ -1,8 +1,10 @@
 #include "Enemy.h"
+
 Enemy:: Enemy(AnimationManager& a, Level& lev, int x, int y) :Entity(a, x, y)
 {
 	option("Enemy", 0.03, 15, "move");
 }
+
 void Enemy:: update(float time)
 {
 	x += dx * time;
@@ -11,10 +13,8 @@ void Enemy:: update(float time)
 	{ 
 		dx *= -1;
 		timer = 0;
-		if (dx < 0)
-			anim.flip(1);
-		else
-			anim.flip(0);
+		if (dx < 0) anim.flip(1);
+		else anim.flip(0);
 	}
 	if (Health <= 0) 
 	{

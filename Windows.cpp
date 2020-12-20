@@ -1,14 +1,17 @@
 #include "Windows.h"
+
 Windows::Windows()
 {
 	currentWindow = "start";
 	click = isGame = restart = start = end = false;
 	sound = true;
 }
+
 Windows::~Windows()
 {
 	windows.clear();
 }
+
 void Windows::loadAllWindows()
 {
 	windows["start"].LoadFromFile("files/start.tmx", "files/start.png");
@@ -18,10 +21,12 @@ void Windows::loadAllWindows()
 	windows["fail"].LoadFromFile("files/fail.tmx", "files/fail.png");
 	windows["victory"].LoadFromFile("files/victory.tmx", "files/victory.png");
 }
+
 void Windows::setWindow(std::string name)
 {
 	currentWindow = name;
 }
+
 void Windows::checkClick(RenderWindow& window, Windows& W)
 {
 	Vector2i pixelPos = Mouse::getPosition(window);
@@ -32,10 +37,7 @@ void Windows::checkClick(RenderWindow& window, Windows& W)
 		for (int i = 0; i < obj.size(); i++)
 			if(obj[i].rect.contains(pixelPos.x, pixelPos.y))
 			{
-				if (obj[i].name == "play")
-				{
-					setWindow("level");
-				}
+				if (obj[i].name == "play") setWindow("level");
 				if (obj[i].name == "setup")
 				{
 					isGame = false;
@@ -46,10 +48,8 @@ void Windows::checkClick(RenderWindow& window, Windows& W)
 				}
 				if (obj[i].name == "sound")
 				{
-					if(sound==true)
-						sound = false;
-					else
-						sound = true;
+					if(sound==true) sound = false;
+					else sound = true;
 				}
 				if (obj[i].name == "level")
 				{
@@ -66,10 +66,7 @@ void Windows::checkClick(RenderWindow& window, Windows& W)
 					lvl = stoi(obj[i].name);
 					setWindow("start");
 				}
-				if (obj[i].name == "exit")
-				{
-					exit(0);
-				}
+				if (obj[i].name == "exit") exit(0);
 				if (obj[i].name == "back")
 				{
 					setWindow("level");
@@ -89,8 +86,7 @@ void Windows::checkClick(RenderWindow& window, Windows& W)
 				if (obj[i].name == "start")
 				{
 					isGame = false;
-					if(W.currentWindow == "pause")
-						end = true;
+					if(W.currentWindow == "pause") end = true;
 					setWindow("start");
 				}
 			}

@@ -8,10 +8,10 @@ protected:
 	float x, y, dx, dy, w, h;    //х, у, w, h данные прямоугольника анимации, dx, dy скорость по x и y 
 	AnimationManager anim;       //для работы с анимацией динамического объекта
 	std::vector<Object> obj;     //массив с объектами карты
-	bool life, dir;  //жизнь, вправо(0)(или влево (1))
-	float timer, timer_end;
-	std::string Name;     //имя анимации
-	int Health;  //количество жизней
+	bool life, dir;              //жизнь, вправо(0)(или влево (1))
+	float timer, timer_end;      //таймеры
+	std::string Name;            //имя анимации
+	int Health;                  //количество жизней
 public:
 	Entity(AnimationManager& A, int X, int Y);
 	virtual void update(float time) = 0;   //изменяет положение в игровом пространстве динамического объекта 

@@ -3,7 +3,7 @@
 bool Level::LoadFromFile(std::string filename, std::string image)
 {
     TiXmlDocument levelFile(filename.c_str());
-    if (!levelFile.LoadFile())     // Загружаем XML-карту
+    if (!levelFile.LoadFile())                 // Загружаем XML-карту
     {
         std::cout << "Loading level \"" << filename << "\" failed." << std::endl;
         return false;
@@ -11,7 +11,6 @@ bool Level::LoadFromFile(std::string filename, std::string image)
     // Работаем с контейнером map
     TiXmlElement* map;
     map = levelFile.FirstChildElement("map");
-   
     width = atoi(map->Attribute("width"));
     height = atoi(map->Attribute("height"));
     tileWidth = atoi(map->Attribute("tilewidth"));
@@ -27,7 +26,6 @@ bool Level::LoadFromFile(std::string filename, std::string image)
         std::cout << "Failed to load tileset." << std::endl;
         return false;
     }
-    //img.createMaskFromColor(Color(255, 255, 255));
     tilesetImage.loadFromImage(img);
     tilesetImage.setSmooth(false);
     // Получаем количество столбцов и строк тайлсета
@@ -51,14 +49,9 @@ bool Level::LoadFromFile(std::string filename, std::string image)
     while (layerElement)
     {
         Layer layer;
-        
-        // Контейнер <data>
         TiXmlElement* layerDataElement;
         layerDataElement = layerElement->FirstChildElement("data");
-        if (layerDataElement == NULL)
-        {
-            std::cout << "Bad map. No layer information found." << std::endl;
-        }
+        if (layerDataElement == NULL) std::cout << "Bad map. No layer information found." << std::endl;
         // Контейнер <tile> - описание тайлов каждого слоя
         TiXmlElement* tileElement;
         tileElement = layerDataElement->FirstChildElement("tile");
@@ -72,34 +65,28 @@ bool Level::LoadFromFile(std::string filename, std::string image)
         while (tileElement)
         {
             int tileGID;
-            if (tileElement->Attribute("gid") == NULL)
-            {
-                tileGID=0;
-            }
+            if (tileElement->Attribute("gid") == NULL) tileGID=0;
             else
                 tileGID = atoi(tileElement->Attribute("gid"));
-
-                int subRectToUse = tileGID - firstTileID;
-                
-                // Устанавливаем TextureRect каждого тайла
-                if (subRectToUse >= 0)
-                {
-                    Sprite sprite;
-                    sprite.setTexture(tilesetImage);
-                    sprite.setTextureRect(subRects[subRectToUse]);
-                    sprite.setPosition(x * tileWidth, y * tileHeight);     
-                    sprite.setColor(Color(255, 255, 255, 255));
-                    layer.tiles.push_back(sprite);
-                }
-                tileElement = tileElement->NextSiblingElement("tile");  
-                x++;
-                if (x >= width)
-                {
-                    x = 0;
-                    y++;
-                    if (y >= height)
-                        y = 0;
-                }
+            int subRectToUse = tileGID - firstTileID;
+            // Устанавливаем TextureRect каждого тайла
+            if (subRectToUse >= 0)
+            {
+                Sprite sprite;
+                sprite.setTexture(tilesetImage);
+                sprite.setTextureRect(subRects[subRectToUse]);
+                sprite.setPosition(x * tileWidth, y * tileHeight);
+                sprite.setColor(Color(255, 255, 255, 255));
+                layer.tiles.push_back(sprite);
+            }
+            tileElement = tileElement->NextSiblingElement("tile");
+            x++;
+            if (x >= width)
+            {
+                x = 0;
+                y++;
+                if (y >= height) y = 0;
+            }
         }
         layers.push_back(layer);
         layerElement = layerElement->NextSiblingElement("layer");
@@ -119,20 +106,12 @@ bool Level::LoadFromFile(std::string filename, std::string image)
             {
                 // Получаем все данные - тип, имя, позиция, etc
                 std::string objectType;
-                if (objectElement->Attribute("type") != NULL)
-                {
-                    objectType = objectElement->Attribute("type");
-                }
+                if (objectElement->Attribute("type") != NULL) objectType = objectElement->Attribute("type");
                 std::string objectName;
-                if (objectElement->Attribute("name") != NULL)
-                {
-                    objectName = objectElement->Attribute("name");
-                }
+                if (objectElement->Attribute("name") != NULL) objectName = objectElement->Attribute("name");
                 int x = atoi(objectElement->Attribute("x"));
                 int y = atoi(objectElement->Attribute("y"));
-
                 int width, height;
-
                 if (objectElement->Attribute("width") != NULL)
                 {
                     width = atoi(objectElement->Attribute("width"));
@@ -146,48 +125,40 @@ bool Level::LoadFromFile(std::string filename, std::string image)
                 // Экземпляр объекта
                 Object object;
                 object.name = objectName;
-        
                 Rect <float> objectRect;
                 objectRect.top = y;
                 objectRect.left = x;
                 objectRect.height = height;
                 objectRect.width = width;
                 object.rect = objectRect;
-                               
                 objects.push_back(object);
                 objectElement = objectElement->NextSiblingElement("object");
             }
             objectGroupElement = objectGroupElement->NextSiblingElement("objectgroup");
         }
     }
-    else
-    {
-        std::cout << "No object layers found..." << std::endl;
-    }
+    else std::cout << "No object layers found..." << std::endl;
     return true;
 }
 
 Object Level::GetObject(std::string name)
 {
     for (int i = 0; i < objects.size(); i++)
-        if (objects[i].name == name)
-            return objects[i];
+        if (objects[i].name == name) return objects[i];
 }
 
 std::vector<Object> Level::GetObjects(std::string name)
 {
     std::vector<Object> vec;
     for (int i = 0; i < objects.size(); i++)
-        if (objects[i].name == name)
-            vec.push_back(objects[i]);
-
+        if (objects[i].name == name) vec.push_back(objects[i]);
     return vec;
 }
 
 std::vector<Object> Level::GetAllObjects()
 {
     return objects;
-};
+}
 
 void Level::Draw(RenderWindow& window)
 {

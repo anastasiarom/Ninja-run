@@ -5,7 +5,7 @@ class Player :public Entity
 {
 public:
 	enum { stay, run, slide, jump, climb, glid, attack,dead } STATE;  //перечисление состо€ий персонажа, соответствующих имеющимс€ анимаци€м
-	bool onLadder, shoot,pause,win,one, sound;                       //на лестнице, в атаке или нет,пауза, выиграл или нет, пауза или нет,был ли проигран, звуковой эффект, включЄн ли звук
+	bool onLadder, shoot,pause,win,one, sound;                        //на лестнице, в атаке или нет,пауза, выиграл или нет, пауза или нет,был ли проигран, звуковой эффект, включЄн ли звук
 	std::map<std::string, bool> key;                                  //данные о нажатых клавишах
 	int score;                                                        //количество собранных монет
 	Sound soundJump, soundCoin;                                       //звуковые эффекты прыжка и сбора монеток

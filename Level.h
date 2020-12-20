@@ -16,10 +16,10 @@ class Level
 {
 private:
     int width, height, tileWidth, tileHeight;//ширина карты, высота карты, ширина тайла, высота тайла
-    int firstTileID;                       //айди первого тайла
-    Texture tilesetImage;                  //текстура карты
-    std::vector<Object> objects;           //вектор объектов
-    std::vector<Layer> layers;             //вектор слоёв
+    int firstTileID;                         //айди первого тайла
+    Texture tilesetImage;                    //текстура карты
+    std::vector<Object> objects;             //вектор объектов
+    std::vector<Layer> layers;               //вектор слоёв
 public:
     bool LoadFromFile(std::string filename, std::string image);  //false если не смогли загрузить файл
     Object GetObject(std::string name);                //возвращает первый объект с заданным именем
